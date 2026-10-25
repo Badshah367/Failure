@@ -109,6 +109,18 @@ textarea.inp{resize:vertical;line-height:1.45}
 .exc{background:var(--surf);border-radius:18px;padding:14px 12px 10px;box-shadow:var(--shadow);margin-bottom:14px}
 .exc .name{font-size:18px;font-weight:800;line-height:1.15}
 .exc .stat-line{font-size:13px;color:var(--muted);margin-top:3px}
+.note-inp{width:100%;font-size:15px;line-height:1.45;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--raised);color:var(--text);resize:vertical;min-height:44px;display:block}
+.note-inp::placeholder{color:var(--faint)}
+.wnote{margin:0 0 14px}
+.wnote label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:2px 0 6px}
+.exnote{margin:8px 0 2px}
+.addnote{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:14px;padding:6px 0;min-height:36px}
+.lastnote{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.4;white-space:pre-wrap}
+.lastnote b{font-weight:700}
+.notetxt{font-size:14px;line-height:1.45;white-space:pre-wrap;color:var(--text);margin-top:6px}
+.notetxt.muted{color:var(--muted)}
+.wnote-panel .t{display:flex;justify-content:space-between;align-items:center}
+.li .snip{font-size:13px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .howto{background:var(--blue-soft);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45;white-space:pre-wrap;margin:10px 0}
 .setrow{display:grid;grid-template-columns:34px 1.1fr 1fr 1fr 44px;gap:6px;align-items:center;padding:5px 4px;margin:0 -4px;border-radius:12px}
 .setrow.band{grid-template-columns:34px 1fr 1.3fr .9fr 44px}
@@ -281,6 +293,7 @@ function metric(s,type){if(type==='reps')return s.r||0;const l=type==='weight'?s
 function liveSnap(s,ex){const o={r:s.r};if(ex.type==='weight')o.w=s.w;if(ex.type==='band'){const b=bandById(s.band);o.bandLbs=b&&b.lbs!=null?b.lbs:null;}return o;}
 function bestMetric(exId,type){let best=0,when=null,set=null;for(const w of state.workouts)for(const e of w.exercises){if(e.exerciseId!==exId)continue;for(const s of e.sets){const v=metric(s,e.type||type);if(v>best){best=v;when=w.endedAt;set=s;}}}return {best,when,set};}
 function sessionsFor(exId){const out=[];for(const w of state.workouts)for(const e of w.exercises)if(e.exerciseId===exId)out.push({w,e});return out;}
+function lastNote(exId){for(const w of state.workouts){const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.note?{note:e.note,when:w.startedAt}:null;}return null;}
 function prevSets(exId){for(const w of state.workouts){const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.sets;}return [];}
 function prevLabel(s,type){if(!s)return '—';if(type==='weight')return `${trimN(s.w)} × ${s.r}`;if(type==='band')return `${esc(s.bandName||'Band')} × ${s.r}`;return `${s.r} reps`;}
 function setText(s,type){if(type==='weight')return `${trimN(s.w)} lbs × ${s.r}`;if(type==='band')return `<span class="sw" style="background:${safeColor(s.bandColor)}"></span> ${esc(s.bandName||'Band')} × ${s.r}`;return `${s.r} reps`;}
@@ -336,7 +349,7 @@ function render(){const fn=VIEWS[ui.view]||VIEWS.home;$('#app').innerHTML=fn();r
 const TABS=[['home','Home',ICON.home],['routines','Routines',ICON.routines],['exercises','Exercises',ICON.dumbbell],['history','History',ICON.history],['settings','Settings',ICON.gear]];
 function renderTabs(){$('#tabs').innerHTML=TABS.map(([id,l,ic])=>`<button class="tab${ui.tab===id?' on':''}" onclick="A.tab('${id}')">${ic}<span>${id==='home'&&state.active?'Workout':l}</span>${id==='home'&&state.active?'<span class="dot"></span>':''}</button>`).join('');}
 
-function wRow(w){const sets=w.exercises.reduce((n,e)=>n+e.sets.length,0);return `<div class="li tap" onclick="A.go('workoutDetail',{id:'${w.id}'},'history')"><div class="grow"><div class="t">${esc(w.routineName)}${w.prs?` <span class="pr">${w.prs} PR</span>`:''}</div><div class="s meta"><span>${fmtDate(w.startedAt)}</span><span>${fmtDur((w.endedAt-w.startedAt)/1000)}</span><span>${sets} sets</span>${w.volume?`<span>${fmtN(w.volume)} lbs</span>`:''}</div></div>${ICON.chev}</div>`;}
+function wRow(w){const sets=w.exercises.reduce((n,e)=>n+e.sets.length,0);return `<div class="li tap" onclick="A.go('workoutDetail',{id:'${w.id}'},'history')"><div class="grow"><div class="t">${esc(w.routineName)}${w.prs?` <span class="pr">${w.prs} PR</span>`:''}</div><div class="s meta"><span>${fmtDate(w.startedAt)}</span><span>${fmtDur((w.endedAt-w.startedAt)/1000)}</span><span>${sets} sets</span>${w.volume?`<span>${fmtN(w.volume)} lbs</span>`:''}</div>${w.note?`<div class="snip">${esc(w.note)}</div>`:''}</div>${ICON.chev}</div>`;}
 function cycleChips(){if(!state.schedule.length)return '';const cur=state.scheduleIndex%state.schedule.length;return `<div class="chips">${state.schedule.map((id,i)=>{const r=routineById(id);return r?`<span class="chip${i===cur?' on':''}">${esc(r.name)}</span>`:'';}).join('')}</div>`;}
 
 VIEWS.home=function(){
@@ -357,6 +370,7 @@ VIEWS.home=function(){
 VIEWS.workout=function(){
   const a=state.active;if(!a)return VIEWS.home();
   let h=`<div class="whdr"><div class="grow"><div class="name">${esc(a.routineName)}</div><div class="time live-timer">${fmtClock((Date.now()-a.startedAt)/1000)}</div></div><button class="btn sm" onclick="A.go('home',{},'home')">Hide</button><button class="btn sm primary" onclick="A.finishAsk()">Finish</button></div>`;
+  h+=`<div class="wnote"><label for="w-note">Session notes</label><textarea class="note-inp" id="w-note" rows="2" placeholder="How did today feel? Short on sleep, gym packed, anything to remember" oninput="A.wNote(this.value)">${esc(a.note||'')}</textarea></div>`;
   h+=a.exercises.map((e,i)=>cardHtml(i)).join('');
   if(!a.exercises.length)h+=`<div class="empty">No exercises yet. Add one below and start logging.</div>`;
   h+=`<button class="btn full primary" onclick="A.addExToActive()">+ Add exercise</button><button class="btn full ghost mt8" style="color:var(--red)" onclick="A.discardAsk()">Discard workout</button>`;
@@ -370,9 +384,16 @@ function cardHtml(ei){
   const head=type==='weight'?['Set','Previous','lbs','Reps','']:type==='band'?['Set','Previous','Band','Reps','']:['Set','Previous','Reps',''];
   return `<section class="exc" id="exc-${ei}"><div class="row between"><div class="grow tap" onclick="A.go('exerciseDetail',{id:'${ex.id}'},'exercises')"><div class="name">${esc(ex.name)}</div><div class="stat-line">${stat}</div></div><button class="ib" aria-label="Exercise options" onclick="A.exMenu(${ei})">${ICON.more}</button></div>
 <div class="howto">${ex.instructions?esc(ex.instructions):`<span class="tap muted" onclick="A.go('exerciseEdit',{id:'${ex.id}',back:'workout'},'home')">No instructions yet. Tap to write how you do this lift, and it will show here every time.</span>`}</div>
+${exNoteHtml(ei,e,ex)}
 <div class="setrow ${type} head">${head.map(x=>`<div>${x}</div>`).join('')}</div>
 ${e.sets.map((s,si)=>setRowHtml(ei,si,s,e,ex,prev[si])).join('')}
 <button class="btn sm full mt8" onclick="A.addSet(${ei})">+ Add set</button></section>`;
+}
+function exNoteHtml(ei,e,ex){
+  const ln=lastNote(ex.id);let h=ln?`<div class="lastnote"><b>Last time:</b> ${esc(ln.note)}</div>`:'';
+  if(e.note!=null||e.noteOpen)h+=`<div class="exnote"><textarea class="note-inp" id="exn-${ei}" rows="2" placeholder="e.g. Machine taken, did cable version. Seat on 4." oninput="A.exNote(${ei},this.value)" aria-label="Note for ${esc(ex.name)}">${esc(e.note||'')}</textarea></div>`;
+  else h+=`<button class="addnote" onclick="A.openExNote(${ei})">+ Add note</button>`;
+  return h;
 }
 function setRowHtml(ei,si,s,e,ex,p){
   const type=ex.type;let mid='';
@@ -462,7 +483,7 @@ VIEWS.exerciseDetail=function(){
   else if(ex.type!=='reps')h+=`<p class="hint">e1RM is estimated from your best set: weight × (1 + reps ÷ 30). Log two sessions to see a trend.</p>`;
   h+=`<div class="row between"><h2 class="h2">History</h2><button class="btn sm ghost" onclick="A.addToRoutineAsk('${ex.id}')">Add to a routine</button></div>`;
   if(!sess.length)h+=`<div class="empty">Not logged yet.</div>`;
-  else h+=`<div class="list">${sess.slice(0,40).map(({w,e})=>`<div class="li col tap" onclick="A.go('workoutDetail',{id:'${w.id}'},'history')"><div class="row between"><div class="t">${fmtDateY(w.startedAt)}</div><div class="s">${esc(w.routineName)}</div></div><div class="setline">${e.sets.map(s=>`<span>${setText(s,e.type)}${s.pr?'<i class="pr">PR</i>':''}</span>`).join('')}</div></div>`).join('')}</div>`;
+  else h+=`<div class="list">${sess.slice(0,40).map(({w,e})=>`<div class="li col tap" onclick="A.go('workoutDetail',{id:'${w.id}'},'history')"><div class="row between"><div class="t">${fmtDateY(w.startedAt)}</div><div class="s">${esc(w.routineName)}</div></div><div class="setline">${e.sets.map(s=>`<span>${setText(s,e.type)}${s.pr?'<i class="pr">PR</i>':''}</span>`).join('')}</div>${e.note?`<div class="lastnote">${esc(e.note)}</div>`:''}</div>`).join('')}</div>`;
   return h;
 };
 
@@ -479,8 +500,9 @@ VIEWS.workoutDetail=function(){
   const dur=(w.endedAt-w.startedAt)/1000,sets=w.exercises.reduce((n,e)=>n+e.sets.length,0);
   let h=hdr(esc(w.routineName),{back:"A.tab('history')",right:`<button class="ib" aria-label="Workout options" onclick="A.wMenu('${w.id}')">${ICON.more}</button>`,sub:`${fmtDateY(w.startedAt)}, ${fmtTime(w.startedAt)}`});
   h+=`<div class="stats"><div class="stat"><b>${fmtDur(dur)}</b><span>duration</span></div><div class="stat"><b>${fmtN(w.volume)}</b><span>lbs volume</span></div><div class="stat"><b>${sets}</b><span>sets</span></div></div>`;
+  h+=`<section class="panel tap wnote-panel" onclick="A.editWNote('${w.id}')"><div class="t">Session notes <span class="link" style="font-size:14px">${w.note?'Edit':'Add'}</span></div><div class="notetxt${w.note?'':' muted'}">${w.note?esc(w.note):'Nothing written for this session.'}</div></section>`;
   if(w.prs)h+=`<div class="pr-banner" style="margin:0 0 12px">${w.prs} personal record${w.prs>1?'s':''} this session</div>`;
-  h+=w.exercises.map(e=>`<section class="panel"><div class="t tap" onclick="A.go('exerciseDetail',{id:'${e.exerciseId}'},'exercises')">${esc(e.name)}</div><table class="sets-tbl">${e.sets.map((s,i)=>`<tr><td>${i+1}</td><td>${setText(s,e.type)}${s.pr?'<i class="pr">PR</i>':''}</td><td class="r">${metricText(s,e.type)}</td></tr>`).join('')}</table></section>`).join('');
+  h+=w.exercises.map(e=>`<section class="panel"><div class="t tap" onclick="A.go('exerciseDetail',{id:'${e.exerciseId}'},'exercises')">${esc(e.name)}</div>${e.note?`<div class="notetxt muted">${esc(e.note)}</div>`:''}<table class="sets-tbl">${e.sets.map((s,i)=>`<tr><td>${i+1}</td><td>${setText(s,e.type)}${s.pr?'<i class="pr">PR</i>':''}</td><td class="r">${metricText(s,e.type)}</td></tr>`).join('')}</table></section>`).join('');
   h+=`<button class="btn full mt" onclick="A.repeat('${w.id}')">Repeat this workout</button>`;
   return h;
 };
@@ -491,7 +513,7 @@ VIEWS.settings=function(){
   h+=`<section class="panel"><div class="t">Appearance</div><div class="seg mt8"><button class="${(s.theme||'system')==='system'?'on':''}" onclick="A.theme('system')">Auto</button><button class="${s.theme==='light'?'on':''}" onclick="A.theme('light')">Light</button><button class="${s.theme==='dark'?'on':''}" onclick="A.theme('dark')">Dark</button></div></section>`;
   h+=`<section class="panel tap" onclick="A.go('bands',{},'settings')"><div class="row between"><div class="grow"><div class="t">Resistance bands</div><div class="s">${state.bands.length?state.bands.map(b=>`<span class="sw" style="background:${safeColor(b.color)}"></span>`).join(' '):'Add your band colors'}</div></div>${ICON.chev}</div></section>`;
   h+=`<section class="panel"><div class="t">Your data</div><p class="s" id="sync-line">${syncText()}</p><div class="row mt8"><button class="btn grow" onclick="A.backup()">Back up</button><button class="btn grow" onclick="A.restoreForm()">Restore</button></div>${!state.routines.length?`<button class="btn full mt8" onclick="A.loadStarterAsk()">Load starter Upper/Lower split</button>`:''}<button class="btn full danger mt8" onclick="A.wipeAsk()">Delete all data</button></section>`;
-  h+=`<section class="panel"><div class="t">Put Hoist on your home screen</div><p class="s"><b>iPhone:</b> open this page in Safari, tap Share, then Add to Home Screen.<br><b>Android:</b> open it in Chrome, tap the ⋮ menu, then Add to Home screen.</p><p class="s">Open it from that icon each time so your log stays in one place.</p></section>`;
+  h+=`<section class="panel"><div class="t">Put Failure on your home screen</div><p class="s"><b>Android:</b> open it in Chrome, tap the ⋮ menu, then Install app.<br><b>iPhone:</b> open it in Safari, tap Share, then Add to Home Screen.</p><p class="s">Open it from that icon each time so your log stays in one place.</p></section>`;
   h+=`<section class="panel"><div class="t">About the numbers</div><p class="s">e1RM is your estimated one-rep max from any set: weight × (1 + reps ÷ 30), the Epley formula. Volume is weight × reps added up across sets. Everything is in lbs.</p></section>`;
   return h;
 };
@@ -540,7 +562,17 @@ A.usePrev=(ei,si)=>{const e=state.active.exercises[ei],ex=exById(e.exerciseId),s
 A.addSet=ei=>{const e=state.active.exercises[ei];const last=e.sets[e.sets.length-1];const s=newSet();if(last){s.w=last.w;s.band=last.band;}e.sets.push(s);save();rerenderCard(ei);};
 A.setMenu=(ei,si)=>openSheet(`<h3>Set ${si+1}</h3><button class="btn full danger" onclick="A.delSet(${ei},${si})">Delete this set</button><button class="btn full mt8" onclick="A.closeSheet()">Cancel</button>`);
 A.delSet=(ei,si)=>{const e=state.active.exercises[ei];e.sets.splice(si,1);if(!e.sets.length)e.sets.push(newSet());save();closeSheet();rerenderCard(ei);};
-A.exMenu=ei=>{const a=state.active,e=a.exercises[ei],ex=exById(e.exerciseId),n=a.exercises.length;openSheet(`<h3>${esc(ex?ex.name:'Exercise')}</h3><div class="list"><div class="li tap" onclick="A.go('exerciseEdit',{id:'${e.exerciseId}',back:'workout'},'home')"><div class="grow t">Edit exercise and instructions</div>${ICON.chev}</div>${ei>0?`<div class="li tap" onclick="A.moveEx(${ei},-1)"><div class="grow t">Move up</div></div>`:''}${ei<n-1?`<div class="li tap" onclick="A.moveEx(${ei},1)"><div class="grow t">Move down</div></div>`:''}<div class="li tap" onclick="A.removeEx(${ei})"><div class="grow t" style="color:var(--red)">Remove from this workout</div></div></div>`);};
+A.exMenu=ei=>{const a=state.active,e=a.exercises[ei],ex=exById(e.exerciseId),n=a.exercises.length;openSheet(`<h3>${esc(ex?ex.name:'Exercise')}</h3><div class="list"><div class="li tap" onclick="A.go('exerciseEdit',{id:'${e.exerciseId}',back:'workout'},'home')"><div class="grow t">Edit exercise and instructions</div>${ICON.chev}</div>${ei>0?`<div class="li tap" onclick="A.moveEx(${ei},-1)"><div class="grow t">Move up</div></div>`:''}${ei<n-1?`<div class="li tap" onclick="A.moveEx(${ei},1)"><div class="grow t">Move down</div></div>`:''}<div class="li tap" onclick="A.swapEx(${ei})"><div class="grow"><div class="t">Swap for another exercise</div><div class="s">For when the machine is taken or missing</div></div>${ICON.chev}</div><div class="li tap" onclick="A.openExNote(${ei})"><div class="grow t">Add a note</div></div><div class="li tap" onclick="A.removeEx(${ei})"><div class="grow t" style="color:var(--red)">Remove from this workout</div></div></div>`);};
+A.wNote=v=>{if(!state.active)return;state.active.note=v;save();};
+A.exNote=(ei,v)=>{const e=state.active&&state.active.exercises[ei];if(!e)return;e.note=v;save();};
+A.openExNote=ei=>{const e=state.active&&state.active.exercises[ei];if(!e)return;closeSheet();if(e.note==null)e.note='';rerenderCard(ei);const t=$('#exn-'+ei);if(t){t.focus();t.scrollIntoView({block:'center',behavior:'smooth'});}};
+A.swapEx=ei=>{const a=state.active,e=a&&a.exercises[ei];if(!e)return;const from=exById(e.exerciseId);
+  openPicker('workout',id=>{if(id===e.exerciseId)return;const prev=prevSets(id);const n=Math.max(e.sets.length,1);
+    const tag=`Swapped from ${from?from.name:'another exercise'}`;
+    a.exercises[ei]={exerciseId:id,target:e.target||'',sets:Array.from({length:n},newSet),note:e.note&&e.note.trim()?`${tag}. ${e.note.trim()}`:tag};
+    save(true);render();const el=$('#exc-'+ei);if(el)el.scrollIntoView({block:'start'});toast('Exercise swapped');});};
+A.editWNote=id=>{const w=state.workouts.find(x=>x.id===id);if(!w)return;openSheet(`<h3>Session notes</h3><textarea class="note-inp" id="wn-edit" rows="5" placeholder="How did this session feel?">${esc(w.note||'')}</textarea><div class="row mt8"><button class="btn grow" onclick="A.closeSheet()">Cancel</button><button class="btn grow primary" onclick="A.saveWNote('${w.id}')">Save</button></div>`);const t=$('#wn-edit');if(t)t.focus();};
+A.saveWNote=id=>{const w=state.workouts.find(x=>x.id===id);if(!w)return;const v=($('#wn-edit').value||'').trim();if(v)w.note=v;else delete w.note;save(true);pushWorkout(w);closeSheet();render();toast('Notes saved');};
 A.moveEx=(ei,d)=>{const a=state.active.exercises,j=ei+d;if(j<0||j>=a.length)return;[a[ei],a[j]]=[a[j],a[ei]];save();closeSheet();render();};
 A.removeEx=ei=>{state.active.exercises.splice(ei,1);save();closeSheet();render();};
 A.pickBand=(ei,si)=>{
@@ -577,8 +609,8 @@ function finishWorkout(){
     const prior=bestMetric(ex.id,ex.type).best;let bestV=0,bestS=null;
     for(const s of sets){const v=metric(s,ex.type);if(v>bestV){bestV=v;bestS=s;}}
     if(bestS&&bestV>prior){bestS.pr=true;prs++;}
-    exercises.push({exerciseId:ex.id,name:ex.name,type:ex.type,sets});}
-  const w={id:a.id,routineId:a.routineId,routineName:a.routineName,startedAt:a.startedAt,endedAt:now,exercises,volume:calcVolume(exercises),prs};
+    const o={exerciseId:ex.id,name:ex.name,type:ex.type,sets};const nt=(e.note||'').trim();if(nt)o.note=nt;exercises.push(o);}
+  const w={id:a.id,routineId:a.routineId,routineName:a.routineName,startedAt:a.startedAt,endedAt:now,exercises,volume:calcVolume(exercises),prs};const wn=(a.note||'').trim();if(wn)w.note=wn;
   state.workouts.unshift(w);
   if(a.routineId&&state.schedule.length){const len=state.schedule.length,cur=state.scheduleIndex%len;if(state.schedule[cur]===a.routineId)state.scheduleIndex=(cur+1)%len;else{const pos=state.schedule.indexOf(a.routineId);if(pos>=0)state.scheduleIndex=(pos+1)%len;}}
   state.active=null;stopRest();save(true);pushWorkout(w);

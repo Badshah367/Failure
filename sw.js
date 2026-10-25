@@ -1,6 +1,6 @@
 // Offline support: always try the network first so updates show up right away,
 // and fall back to the saved copy when the gym has no signal.
-const CACHE = 'failure-v1';
+const CACHE = 'failure-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'program.json', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
