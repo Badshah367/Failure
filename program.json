@@ -1,0 +1,718 @@
+{
+ "rev": 1,
+ "note": "Routines, exercises and training cycle for the Failure app. Bump rev on every change so phones pick it up.",
+ "exercises": [
+  {
+   "createdAt": 1790796588564,
+   "id": "an95r7muoi1v6c",
+   "instructions": "Lie with eyes under the bar, feet flat, shoulder blades pinched back and down. Grip a little wider than shoulders. Lower the bar to the lower chest with elbows around 45 degrees, touch lightly, press back up over the shoulders.",
+   "muscle": "Chest",
+   "name": "Barbell bench press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "is71x7muoi1v6c",
+   "instructions": "Bench at 30 degrees. Kick the dumbbells up to the start, palms forward. Lower until the upper arms are just below the bench, then press up and slightly in without banging the weights together.",
+   "muscle": "Chest",
+   "name": "Incline dumbbell press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "f7fyjwmuoi1v6c",
+   "instructions": "Flat bench, slight bend in the elbows that stays fixed. Open the arms wide until you feel a stretch across the chest, then squeeze the weights back together over the chest.",
+   "muscle": "Chest",
+   "name": "Dumbbell fly",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "hic70vmuoi1v6c",
+   "instructions": "Hinge to about 45 degrees with a flat back and soft knees. Pull the bar to the lower ribs, leading with the elbows, pause, and lower under control. No jerking with the hips.",
+   "muscle": "Back",
+   "name": "Barbell row",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "dy8cyumuoi1v6c",
+   "instructions": "Grip just outside shoulder width, lean back slightly, chest up. Pull the bar to the top of the chest by driving the elbows down and back. Let it rise slowly all the way up for a full stretch.",
+   "muscle": "Back",
+   "name": "Lat pulldown",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "wsvcgmmuoi1v6c",
+   "instructions": "Chest on the pad, arms hanging straight down. Row the handles toward the hips, squeezing the shoulder blades together at the top. Lower slowly and let the shoulders stretch forward.",
+   "muscle": "Back",
+   "name": "Chest-supported row",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "i6v3f5muoi1v6c",
+   "instructions": "Hang from the bar with palms facing away, shoulders pulled down. Pull until the chin clears the bar, pause, then lower all the way to straight arms. Add a band for assistance if needed.",
+   "muscle": "Back",
+   "name": "Pull-up",
+   "type": "reps"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "v7cx1dmuoi1v6c",
+   "instructions": "Bar at collarbone, grip just outside shoulders, glutes and abs tight. Press straight up, tucking the head through as the bar passes, and lock out overhead. Lower back to the collarbone.",
+   "muscle": "Shoulders",
+   "name": "Overhead press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "aprsepmuoi1v6c",
+   "instructions": "Bench upright, dumbbells at ear height with palms forward. Press up until the arms are nearly straight, then lower to ear height. Keep the ribs down, no arching.",
+   "muscle": "Shoulders",
+   "name": "Seated dumbbell shoulder press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "j16d0kmuoi1v6c",
+   "instructions": "Slight forward lean, small bend in the elbows. Raise the dumbbells out to the sides until they reach shoulder height, leading with the elbows. Lower slowly, 2 to 3 seconds down.",
+   "muscle": "Shoulders",
+   "name": "Lateral raise",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "poldjfmuoi1v6c",
+   "instructions": "Anchor the band at face height. Pull toward the face with the elbows high and wide, ending with the hands beside the ears. Squeeze the rear shoulders, then return slowly.",
+   "muscle": "Shoulders",
+   "name": "Band face pull",
+   "type": "band"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "jvdbhamuoi1v6c",
+   "instructions": "Hold the band at shoulder height with straight arms, hands shoulder width apart. Pull the band apart until it touches the chest, squeezing the shoulder blades. Return slowly.",
+   "muscle": "Shoulders",
+   "name": "Band pull-apart",
+   "type": "band"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "sldggzmuoi1v6c",
+   "instructions": "Stand tall, elbows pinned to the sides. Curl the dumbbells up, turning the palms toward the ceiling on the way, squeeze at the top, and lower slowly without swinging.",
+   "muscle": "Biceps",
+   "name": "Dumbbell curl",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "8unk1smuoi1v6c",
+   "instructions": "Palms facing each other the whole time. Curl the dumbbells to the shoulders with the elbows fixed, then lower under control. Alternating arms is fine.",
+   "muscle": "Biceps",
+   "name": "Hammer curl",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "eo6408muoi1v6c",
+   "instructions": "Cable at the top with a bar or rope. Elbows tucked to the sides, push down until the arms are straight and squeeze the triceps. Let the hands come up to about chest height, no higher.",
+   "muscle": "Triceps",
+   "name": "Triceps pushdown",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "z6g5qsmuoi1v6c",
+   "instructions": "Hold one dumbbell overhead with both hands. Lower it behind the head by bending the elbows, keeping them pointed forward, feel the stretch, then extend back to straight.",
+   "muscle": "Triceps",
+   "name": "Overhead triceps extension",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "rb9kg3muoi1v6c",
+   "instructions": "Bar on the upper back, feet about shoulder width, toes slightly out. Big breath, brace, sit down between the knees keeping the chest up until the thighs are at least parallel. Drive up through the whole foot.",
+   "muscle": "Quads",
+   "name": "Back squat",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "3sapvfmuoi1v6c",
+   "instructions": "Feet shoulder width on the middle of the platform. Lower the sled until the knees are at about 90 degrees without letting the lower back peel off the pad, then press through the heels. Do not lock the knees hard.",
+   "muscle": "Quads",
+   "name": "Leg press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "9c9ilpmuoi1v6c",
+   "instructions": "Rear foot on a bench, front foot far enough forward that the shin stays fairly upright. Lower straight down until the back knee is near the floor, then drive up through the front heel. Do all reps on one leg, then switch.",
+   "muscle": "Quads",
+   "name": "Bulgarian split squat",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "f8blq7muoi1v6c",
+   "instructions": "Back against the pad, pad on the shins just above the ankles. Extend until the legs are straight and squeeze the quads for a second, then lower slowly, 2 to 3 seconds down.",
+   "muscle": "Quads",
+   "name": "Leg extension",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "ji0mfxmuoi1v6c",
+   "instructions": "Bar over the middle of the feet, hip width stance. Hinge and grip just outside the legs, chest up, back flat, take the slack out of the bar. Push the floor away and stand tall. Lower by hinging first, then bending the knees.",
+   "muscle": "Hamstrings",
+   "name": "Deadlift",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "yk7mgtmuoi1v6c",
+   "instructions": "Start standing with the bar at the hips. Soft knees, push the hips back and slide the bar down the thighs, keeping it close and the back flat. Stop when the hamstrings are fully stretched, then drive the hips forward.",
+   "muscle": "Hamstrings",
+   "name": "Romanian deadlift",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "yo1ttpmuoi1v6c",
+   "instructions": "Pad just above the heels. Curl the heels toward the glutes as far as they go, squeeze, then lower slowly. Keep the hips pressed into the pad.",
+   "muscle": "Hamstrings",
+   "name": "Leg curl",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588564,
+   "id": "3b2zoqmuoi1v6c",
+   "instructions": "Upper back on a bench, bar padded across the hips, feet flat with shins vertical at the top. Drive the hips up until the body is flat, chin tucked, squeeze the glutes hard, then lower.",
+   "muscle": "Glutes",
+   "name": "Hip thrust",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588565,
+   "id": "k4jhlamuoi1v6d",
+   "instructions": "Balls of the feet on the edge of a step or platform. Lower the heels for a deep stretch, pause, then rise as high as possible and hold the top for a second.",
+   "muscle": "Calves",
+   "name": "Standing calf raise",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588565,
+   "id": "hq0yizmuoi1v6d",
+   "instructions": "Pad across the lower thighs, balls of the feet on the platform. Drop the heels for a full stretch, then press up onto the toes and squeeze. Slow on the way down.",
+   "muscle": "Calves",
+   "name": "Seated calf raise",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1790796588565,
+   "id": "ekznadmuoi1v6d",
+   "instructions": "Hang from a bar or use ab straps. Pull the knees up toward the chest, curling the pelvis up at the top, then lower slowly without swinging.",
+   "muscle": "Core",
+   "name": "Hanging knee raise",
+   "type": "reps"
+  },
+  {
+   "createdAt": 1790796588565,
+   "id": "g3y7m8muoi1v6d",
+   "instructions": "Kneel facing the cable with the rope held beside the head. Crunch down by rounding the spine and pulling the elbows toward the knees. Return slowly and feel the abs stretch.",
+   "muscle": "Core",
+   "name": "Cable crunch",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792884161131,
+   "id": "8h4j3pmvn0xsh7",
+   "instructions": "https://www.youtube.com/shorts/aFbPZMW6CDM\n\nPoints Of Performance\n- Set the machine handles so that your arm is just below 90 degrees at the bottom of the ROM\n- Grip slightly wider than shoulder width\n- Make sure your elbows are stacked under your wrists (so you may need to sit forwards just a bit)\n- This is FRONTAL plane so your arms should be closer to the side of your body",
+   "muscle": "Shoulder + Chest",
+   "name": "Seated Shoulder Press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792884435054,
+   "id": "nq0mdhmvn13nu6",
+   "instructions": "https://www.youtube.com/shorts/zp75lao20-8\n\n- Brace the same side hip as the working arm\n- Allow the shoulder to move forwards, but you DO NOT need to overemphasize the stretch\n- Drive the elbow to the hip, don't pull behind the body",
+   "muscle": "Back",
+   "name": "Hip Braced One Arm Cable Lat Row",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792884435055,
+   "id": "8q5nwamvn13nu7",
+   "instructions": "https://www.youtube.com/shorts/Y6pDfinwQdo\n\n- Use about a 45-70 degree incline; make sure your setup has you performing RETRACTION (not elevation)\n- You should be flexed close to 90 degrees at the shoulders (arms raised to about shoulder height)\n- Keep your arms STRAIGHT\n- The ROM is short, so don't try to increase it to chase a \"feeling\"\n- SUBS: DBs on an incline bench, or any chest-supported row that lets you perform RETRACTION (pulling the shoulders back)",
+   "muscle": "Back",
+   "name": "Kelso Shrugs",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792884435056,
+   "id": "zt2eyfmvn13nu8",
+   "instructions": "https://www.youtube.com/shorts/GTvzDGCJiXo\n\n- Use a slightly wider than shoulder width grip\n- Initiate the movement by driving the arms up\n- Bring up to where you're at 90 degrees of abduction",
+   "muscle": "Shoulders",
+   "name": "Smith Machine Upright Rows",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792884435057,
+   "id": "jf04comvn13nu9",
+   "instructions": "https://www.youtube.com/shorts/nJ37yTHlzJU\n\n- Use a 45 degree incline\n- The cables should run through your shoulder joint alignment-wise\n- If that's confusing, just make sure the cable is in line with your arm the whole time",
+   "muscle": "Shoulders",
+   "name": "Incline Cable Rear Delts",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278116,
+   "id": "xc3wrtmvn1lqck",
+   "instructions": "https://www.youtube.com/watch?v=jIfIdgz2UjA\n\nIF YOU DON'T HAVE THIS MACHINE, JUST DO THE PREACHER CURL WITH A BAR!\n- Line your elbow up with the cam (where the machine rotates)\n- Think about squeezing your forearm into your biceps, not just curling the weight",
+   "muscle": "Biceps",
+   "name": "Preacher Curl (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278117,
+   "id": "trzsd4mvn1lqcl",
+   "instructions": "https://www.youtube.com/watch?v=BRGaux8Odtg\n\n- Make sure the shoulders DO NOT MOVE and are locked slightly in retraction (the humerus isn't moving here, so some retraction is ok)\n- SUBS: you can do these with bands as well",
+   "muscle": "Triceps",
+   "name": "Cross Body Tricep Extension",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278118,
+   "id": "m1b6iymvn1lqcm",
+   "instructions": "",
+   "muscle": "Calves",
+   "name": "Calf Press (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278119,
+   "id": "1hl6qemvn1lqcn",
+   "instructions": "https://www.youtube.com/watch?v=29mGPQHcp5Y\n\n- Tuck your chin\n- Neutral spine\n- At the top, make sure your ankles and knees are stacked\n- Brace with the abs as you go into hip extension",
+   "muscle": "Glutes",
+   "name": "Hip Thrust (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278120,
+   "id": "7uqtcvmvn1lqco",
+   "instructions": "https://www.youtube.com/shorts/WUsdRJHcDqk\n\n- Get both feet lined up like you're going to do a normal hip thrust\n- Shift a foot out so the heel is in line with the toes of the other foot\n- Unrack the weight\n- Brace with the abs\n- Flex the hips to about 110 degrees\n- Push through the heel to extend the hip and hold at the top",
+   "muscle": "Glutes",
+   "name": "B-Stance Hip Thrust",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278121,
+   "id": "uvujh5mvn1lqcp",
+   "instructions": "https://www.youtube.com/watch?v=JqvobZ01U6Y\n\n- Keep the hips pressed into the pad\n- Don't use momentum at the start of the rep\n- Create tension with the lats and abs to stabilize the pelvis so the hamstrings have better output\n- SUBS: seated banded leg curls (one leg at a time)",
+   "muscle": "Hamstrings",
+   "name": "Lying Leg Curl (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278122,
+   "id": "8o2pzzmvn1lqcq",
+   "instructions": "Target: sternal pec fibers\nPosition: lengthened to mid\nSwap: ANY sternal chest press; seated cable sternal press (less ideal)\n\n- Set the handles forward enough that at the bottom you can bring your hands BACK OFF the handles\n- Set the seat so the shoulders, elbows, wrists and handles are in a line and \"stacked\"\n- IF YOU DON'T HAVE A CONVERGING CHEST PRESS, USE ANY STERNAL CHEST PRESS MACHINE YOU HAVE ACCESS TO",
+   "muscle": "Chest",
+   "name": "Chest Press (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278123,
+   "id": "xdi0pgmvn1lqcr",
+   "instructions": "- Grip the bar 1.5 times shoulder width\n- Lean back just SLIGHTLY to allow room for the bar to clear your face (you'll stay MOSTLY VERTICAL)\n- Drive the elbows DOWN into your pockets",
+   "muscle": "Back",
+   "name": "Lat Pulldown (Cable)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278124,
+   "id": "867hv1mvn1lqcs",
+   "instructions": "https://www.youtube.com/watch?v=WEHfOJwdU4U\n\n- Arch the t-spine\n- Use a slightly wider than shoulder width grip\n- Flex the shoulders 70-90 degrees\n- Drive the elbows BACK but not behind the body, keeping 70-90 degrees of abduction as you row\n- SUBS: ANY chest-supported row MACHINE with the same shoulder and hand position (NOT a t-bar row)",
+   "muscle": "Back",
+   "name": "Iso-Lateral Row (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278125,
+   "id": "b07zibmvn1lqct",
+   "instructions": "https://www.youtube.com/watch?v=kMxGayuc0yI\n\n- Tuck your chin\n- Brace with your abs\n- Drive the shoulders up and hold\n- Do not rotate the shoulders back",
+   "muscle": "Back",
+   "name": "Shrug (Smith Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278126,
+   "id": "b3m4pqmvn1lqcu",
+   "instructions": "- If you don't have a machine lateral, use a cable machine\n- Set it up so your shoulder joint is in line with the pivots of the machine\n- Think about driving your elbows towards the ceiling",
+   "muscle": "Shoulders",
+   "name": "Lateral Raise (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278127,
+   "id": "92nvlnmvn1lqcv",
+   "instructions": "- Put the cuffs at mid hand or even at the wrist, either is ok\n- Step forward if you need to, to get the weight off the stack\n- Drive the neutral hand towards the biceps",
+   "muscle": "Biceps",
+   "name": "Hammer Curl (Cable)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278128,
+   "id": "t2ay8rmvn1lqcw",
+   "instructions": "https://www.youtube.com/shorts/qNPKdMGSvpU\n\n- Set the bench at about a 70 degree incline\n- Grab the handle, then sit down with it\n- Keep the shoulders back\n- Push down, then lower back to at least 90 degrees of elbow flexion",
+   "muscle": "Triceps",
+   "name": "Incline Bench Pushdowns",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278129,
+   "id": "34cr3fmvn1lqcx",
+   "instructions": "- Keep the feet up and down (don't point the toes) so you keep a neutral ankle\n- Don't turn the toes in or out\n- Line up the knee with the pivot on the machine\n- Don't launch the weight on the lifting phase\n- Lower slowly back to the start",
+   "muscle": "Quads",
+   "name": "Leg Extension (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278130,
+   "id": "m3keihmvn1lqcy",
+   "instructions": "",
+   "muscle": "Hamstrings",
+   "name": "Seated Leg Curl (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278131,
+   "id": "l2enxumvn1lqcz",
+   "instructions": "https://www.youtube.com/watch?v=BEnxJqs95e8\n\nTarget: adductors\nPosition: short\n\nIf you don't have this machine, cable adduction will do",
+   "muscle": "Glutes",
+   "name": "Hip Adduction (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278132,
+   "id": "swr243mvn1lqd0",
+   "instructions": "- Lock your shoulders back\n- Drive your forearm into your upper arm",
+   "muscle": "Biceps",
+   "name": "Bicep Curl (Cable)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278133,
+   "id": "uvcb9umvn1lqd1",
+   "instructions": "- A non-converging chest press works best\n- If none of your chest press machines work, use the Smith machine\n- Set up so that when you lower, your hands are around chin level\n- Focus on elbow flexion and then extension\n- The shoulders should move as little as possible",
+   "muscle": "Triceps",
+   "name": "Chest Press Machine JM Press",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278134,
+   "id": "xeqpdfmvn1lqd2",
+   "instructions": "- Align the knee with the pivot of the machine\n- A small rep difference between the stronger and weaker side is fine\n- Two options for rest: do the weak side first, then immediately the strong side with no rest (same load) and go to failure; OR do the weak side, rest, then do the strong side matching only the reps the weaker side did",
+   "muscle": "Quads",
+   "name": "Single Leg Extensions",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278135,
+   "id": "xdi96jmvn1lqd3",
+   "instructions": "https://www.youtube.com/watch?v=hjRlm1cU5g4\n\nSET UP IN THE BOTTOM FIRST: find where you have the most knee flexion WITH full contact of the foot on the pad\n- Drive the knees forward to initiate\n- Squat until hams touch calves\n- No part of the foot should come off the platform; if it does, adjust foot position to keep constant foot contact\n- Move your feet around to find where the knees go fully forward and the whole foot stays on the platform\n- SUBS: Smith reverse banded, pendulum, linear hack",
+   "muscle": "Quads",
+   "name": "Hack Squat (Machine)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278136,
+   "id": "yjuadgmvn1lqd4",
+   "instructions": "BANDED\n- You can also put the band around your back if it bothers your neck\n- Keep a neutral spine by bracing the abs; DO NOT HUNCH THE UPPER BACK OVER\n- Come all the way up but DO NOT overly arch the low back (keep it neutral)",
+   "muscle": "Hamstrings",
+   "name": "Back Extension (Weighted Hyperextension)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278137,
+   "id": "4hbzbsmvn1lqd5",
+   "instructions": "https://www.youtube.com/shorts/aFbPZMW6CDM\n\n- Set the handles so your arm is just below 90 degrees at the bottom of the ROM\n- Grip slightly wider than shoulder width\n- Keep your elbows stacked under your wrists (you may need to sit forward a bit)\n- This is FRONTAL plane, so your arms should be closer to the side of your body",
+   "muscle": "Shoulders",
+   "name": "Seated Shoulder Press (Frontal Plane)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278138,
+   "id": "wu0i1qmvn1lqd6",
+   "instructions": "https://www.youtube.com/watch?v=cDEq3ljObjk\n\n- Elbows flex on the eccentric, then straighten on the concentric to fully shorten the pecs",
+   "muscle": "Chest",
+   "name": "Butterfly (Pec Deck)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278139,
+   "id": "ys489vmvn1lqd7",
+   "instructions": "- Grip around shoulder width or slightly narrower/wider, whatever feels best\n- Arch the back just a little\n- Drive the elbows towards the floor",
+   "muscle": "Back",
+   "name": "Reverse Grip Lat Pulldown (Cable)",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278140,
+   "id": "bjfh4imvn1lqd8",
+   "instructions": "https://www.youtube.com/shorts/DecplM2Mqek\n\n- Any bench setup in the Smith works as long as the bar path is good\n- Use the bench to brace, either leaning on it or lying on it angled at 45-70 degrees\n- Get the elbows up\n- Drive the elbows back",
+   "muscle": "Back",
+   "name": "Chest Supported Smith Upper Back Row",
+   "type": "weight"
+  },
+  {
+   "createdAt": 1792885278141,
+   "id": "kh13l1mvn1lqd9",
+   "instructions": "https://www.youtube.com/watch?v=qJl6FZf3qbk\n\n- Push your hand towards the wall instead of \"lifting up\"",
+   "muscle": "Shoulders",
+   "name": "Single Arm Lateral Raise (Cable)",
+   "type": "weight"
+  }
+ ],
+ "bands": [
+  {
+   "color": "#f5c518",
+   "id": "j7v232muoi1v6d",
+   "lbs": null,
+   "name": "Yellow"
+  },
+  {
+   "color": "#e5484d",
+   "id": "n8qpjomuoi1v6d",
+   "lbs": null,
+   "name": "Red"
+  },
+  {
+   "color": "#2fbf71",
+   "id": "35ftg0muoi1v6d",
+   "lbs": null,
+   "name": "Green"
+  },
+  {
+   "color": "#2b64f0",
+   "id": "88x8dbmuoi1v6d",
+   "lbs": null,
+   "name": "Blue"
+  }
+ ],
+ "routines": [
+  {
+   "id": "0yrnqzmvn13nue",
+   "items": [
+    {
+     "exerciseId": "is71x7muoi1v6c",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "nq0mdhmvn13nu6",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "8q5nwamvn13nu7",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "zt2eyfmvn13nu8",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "jf04comvn13nu9",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "j16d0kmuoi1v6c",
+     "reps": "",
+     "sets": 2
+    }
+   ],
+   "name": "Torso 2 C"
+  },
+  {
+   "id": "c50phgmvo72l2i",
+   "items": [
+    {
+     "exerciseId": "swr243mvn1lqd0",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "uvcb9umvn1lqd1",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "xeqpdfmvn1lqd2",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "xdi96jmvn1lqd3",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "yjuadgmvn1lqd4",
+     "reps": "",
+     "sets": 2
+    }
+   ],
+   "name": "Limbs 2 A"
+  },
+  {
+   "id": "egsvkmmvo75g4b",
+   "items": [
+    {
+     "exerciseId": "8o2pzzmvn1lqcq",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "xdi0pgmvn1lqcr",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "867hv1mvn1lqcs",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "b07zibmvn1lqct",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "b3m4pqmvn1lqcu",
+     "reps": "",
+     "sets": 2
+    }
+   ],
+   "name": "Torso 2 B"
+  },
+  {
+   "id": "xqy8rgmvo75ypl",
+   "items": [
+    {
+     "exerciseId": "4hbzbsmvn1lqd5",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "wu0i1qmvn1lqd6",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "ys489vmvn1lqd7",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "bjfh4imvn1lqd8",
+     "reps": "",
+     "sets": 1
+    },
+    {
+     "exerciseId": "kh13l1mvn1lqd9",
+     "reps": "",
+     "sets": 1
+    }
+   ],
+   "name": "Torso 2 A"
+  },
+  {
+   "id": "okpcyvmvo76ikj",
+   "items": [
+    {
+     "exerciseId": "92nvlnmvn1lqcv",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "t2ay8rmvn1lqcw",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "m1b6iymvn1lqcm",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "34cr3fmvn1lqcx",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "m3keihmvn1lqcy",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "l2enxumvn1lqcz",
+     "reps": "",
+     "sets": 2
+    }
+   ],
+   "name": "Limbs 2 B"
+  },
+  {
+   "id": "fb2j5emvo774ee",
+   "items": [
+    {
+     "exerciseId": "xc3wrtmvn1lqck",
+     "reps": "",
+     "sets": 4
+    },
+    {
+     "exerciseId": "trzsd4mvn1lqcl",
+     "reps": "",
+     "sets": 4
+    },
+    {
+     "exerciseId": "m1b6iymvn1lqcm",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "1hl6qemvn1lqcn",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "7uqtcvmvn1lqco",
+     "reps": "",
+     "sets": 2
+    },
+    {
+     "exerciseId": "uvujh5mvn1lqcp",
+     "reps": "",
+     "sets": 2
+    }
+   ],
+   "name": "Limbs 2 C"
+  }
+ ],
+ "schedule": [
+  "xqy8rgmvo75ypl",
+  "c50phgmvo72l2i",
+  "egsvkmmvo75g4b",
+  "okpcyvmvo76ikj",
+  "0yrnqzmvn13nue",
+  "fb2j5emvo774ee"
+ ],
+ "nextRoutine": "xqy8rgmvo75ypl",
+ "removedExercises": [],
+ "removedRoutines": []
+}
