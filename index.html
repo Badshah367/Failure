@@ -111,6 +111,20 @@ textarea.inp{resize:vertical;line-height:1.45}
 .exc .stat-line{font-size:13px;color:var(--muted);margin-top:3px}
 .note-inp{width:100%;font-size:15px;line-height:1.45;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--raised);color:var(--text);resize:vertical;min-height:44px;display:block}
 .note-inp::placeholder{color:var(--faint)}
+.lastsess{background:var(--surf);border-radius:16px;box-shadow:var(--shadow);margin:0 0 12px;overflow:hidden}
+.lastsess>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;min-height:52px}
+.lastsess>summary::-webkit-details-marker{display:none}
+.lastsess>summary .grow{min-width:0}
+.lastsess>summary svg.chev{transition:transform .15s}
+.lastsess[open]>summary svg.chev{transform:rotate(90deg)}
+.ls-body{padding:0 14px 10px;border-top:1px solid var(--line)}
+.ls-note{font-size:14px;line-height:1.45;white-space:pre-wrap;background:var(--raised);border-radius:10px;padding:8px 10px;margin:10px 0 2px}
+.ls-ex{padding:9px 0;border-bottom:1px solid var(--line)}
+.ls-ex:last-child{border-bottom:0}
+.ls-ex .n{font-weight:700;font-size:15px}
+.ls-sets{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:3px;font-size:15px;font-variant-numeric:tabular-nums}
+.ls-sets span{white-space:nowrap}
+.ls-sets em{font-style:normal;color:var(--muted);font-size:12px;font-weight:700;margin-right:3px}
 .wnote{margin:0 0 14px}
 .wnote label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:2px 0 6px}
 .exnote{margin:8px 0 2px}
@@ -294,7 +308,20 @@ function liveSnap(s,ex){const o={r:s.r};if(ex.type==='weight')o.w=s.w;if(ex.type
 function bestMetric(exId,type){let best=0,when=null,set=null;for(const w of state.workouts)for(const e of w.exercises){if(e.exerciseId!==exId)continue;for(const s of e.sets){const v=metric(s,e.type||type);if(v>best){best=v;when=w.endedAt;set=s;}}}return {best,when,set};}
 function sessionsFor(exId){const out=[];for(const w of state.workouts)for(const e of w.exercises)if(e.exerciseId===exId)out.push({w,e});return out;}
 function lastNote(exId){for(const w of state.workouts){const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.note?{note:e.note,when:w.startedAt}:null;}return null;}
-function prevSets(exId){for(const w of state.workouts){const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.sets;}return [];}
+function prevSets(exId,routineId){
+  if(routineId)for(const w of state.workouts){if(w.routineId!==routineId)continue;const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.sets;}
+  for(const w of state.workouts){const e=w.exercises.find(x=>x.exerciseId===exId);if(e)return e.sets;}return [];}
+const activeRid=()=>state.active?state.active.routineId:null;
+function lastRoutineSession(a){if(!a||!a.routineId)return null;return state.workouts.find(w=>w.id!==a.id&&w.routineId===a.routineId)||null;}
+function daysAgo(ts){const d=Math.round((new Date().setHours(0,0,0,0)-new Date(ts).setHours(0,0,0,0))/864e5);return d<=0?'today':d===1?'yesterday':`${d} days ago`;}
+function compactSet(s,type){if(type==='weight')return `${trimN(s.w)} × ${s.r}`;if(type==='band')return `<span class="sw" style="background:${safeColor(s.bandColor)}"></span> ${esc(s.bandName||'Band')} × ${s.r}`;return `${s.r} reps`;}
+function lastSessionHtml(a){
+  const w=lastRoutineSession(a);if(!w)return '';
+  const open=state.settings.lastOpen!==false;
+  let b=w.note?`<div class="ls-note">${esc(w.note)}</div>`:'';
+  b+=w.exercises.map(e=>`<div class="ls-ex"><div class="n">${esc(e.name)}</div><div class="ls-sets">${e.sets.map((x,i)=>`<span><em>${i+1}</em>${compactSet(x,e.type)}${x.pr?' <i class="pr">PR</i>':''}</span>`).join('')}</div>${e.note?`<div class="lastnote">${esc(e.note)}</div>`:''}</div>`).join('');
+  return `<details class="lastsess" ${open?'open':''} ontoggle="A.lastToggle(this.open)"><summary><div class="grow"><div class="t">Last ${esc(w.routineName)}</div><div class="s">${fmtDate(w.startedAt)} · ${daysAgo(w.startedAt)}</div></div>${ICON.chev}</summary><div class="ls-body">${b}</div></details>`;
+}
 function prevLabel(s,type){if(!s)return '—';if(type==='weight')return `${trimN(s.w)} × ${s.r}`;if(type==='band')return `${esc(s.bandName||'Band')} × ${s.r}`;return `${s.r} reps`;}
 function setText(s,type){if(type==='weight')return `${trimN(s.w)} lbs × ${s.r}`;if(type==='band')return `<span class="sw" style="background:${safeColor(s.bandColor)}"></span> ${esc(s.bandName||'Band')} × ${s.r}`;return `${s.r} reps`;}
 function metricText(s,type){const v=metric(s,type);if(!v||type==='reps')return '';return `e1RM ${Math.round(v)}`;}
@@ -370,6 +397,7 @@ VIEWS.home=function(){
 VIEWS.workout=function(){
   const a=state.active;if(!a)return VIEWS.home();
   let h=`<div class="whdr"><div class="grow"><div class="name">${esc(a.routineName)}</div><div class="time live-timer">${fmtClock((Date.now()-a.startedAt)/1000)}</div></div><button class="btn sm" onclick="A.go('home',{},'home')">Hide</button><button class="btn sm primary" onclick="A.finishAsk()">Finish</button></div>`;
+  h+=lastSessionHtml(a);
   h+=`<div class="wnote"><label for="w-note">Session notes</label><textarea class="note-inp" id="w-note" rows="2" placeholder="How did today feel? Short on sleep, gym packed, anything to remember" oninput="A.wNote(this.value)">${esc(a.note||'')}</textarea></div>`;
   h+=a.exercises.map((e,i)=>cardHtml(i)).join('');
   if(!a.exercises.length)h+=`<div class="empty">No exercises yet. Add one below and start logging.</div>`;
@@ -378,7 +406,7 @@ VIEWS.workout=function(){
 };
 function cardHtml(ei){
   const e=state.active.exercises[ei];const ex=exById(e.exerciseId);if(!ex)return '';
-  const prev=prevSets(ex.id),best=bestMetric(ex.id,ex.type),tb=todayBest(e,ex),type=ex.type;
+  const prev=prevSets(ex.id,activeRid()),best=bestMetric(ex.id,ex.type),tb=todayBest(e,ex),type=ex.type;
   const unit=type==='reps'?'reps':'lbs e1RM';
   let stat='';if(best.best)stat+=`Best ${type==='reps'?best.best:Math.round(best.best)} ${unit}`;if(tb)stat+=`${stat?' · ':''}Today ${type==='reps'?tb:Math.round(tb)}`;if(!stat)stat=prev.length?'':'First time logging this';
   const head=type==='weight'?['Set','Previous','lbs','Reps','']:type==='band'?['Set','Previous','Band','Reps','']:['Set','Previous','Reps',''];
@@ -549,7 +577,7 @@ A.setField=(ei,si,f,v)=>{const a=state.active;if(!a||!a.exercises[ei]||!a.exerci
 A.toggleDone=(ei,si)=>{
   const a=state.active;if(!a)return;const e=a.exercises[ei];if(!e)return;const ex=exById(e.exerciseId),s=e.sets[si];if(!ex||!s)return;
   if(s.done){s.done=false;save();rerenderCard(ei);return;}
-  const p=prevSets(ex.id)[si],last=e.sets.slice(0,si).reverse().find(x=>x.done);
+  const p=prevSets(ex.id,activeRid())[si],last=e.sets.slice(0,si).reverse().find(x=>x.done);
   if(ex.type==='weight'&&s.w==null){if(p&&p.w!=null)s.w=p.w;else if(last&&last.w!=null)s.w=last.w;}
   if(ex.type==='band'&&!s.band){if(p&&p.band&&bandById(p.band))s.band=p.band;else if(last&&last.band)s.band=last.band;}
   if(s.r==null){if(p&&p.r!=null)s.r=p.r;else if(last&&last.r!=null)s.r=last.r;}
@@ -558,11 +586,12 @@ A.toggleDone=(ei,si)=>{
   if(ex.type==='band'&&!s.band){toast('Pick a band first');A.pickBand(ei,si);return;}
   s.done=true;save();rerenderCard(ei);startRest();
 };
-A.usePrev=(ei,si)=>{const e=state.active.exercises[ei],ex=exById(e.exerciseId),s=e.sets[si];const p=prevSets(ex.id)[si];if(!p){toast('No previous set to copy');return;}if(ex.type==='weight')s.w=p.w;if(ex.type==='band'&&p.band&&bandById(p.band))s.band=p.band;s.r=p.r;save();rerenderCard(ei);};
+A.usePrev=(ei,si)=>{const e=state.active.exercises[ei],ex=exById(e.exerciseId),s=e.sets[si];const p=prevSets(ex.id,activeRid())[si];if(!p){toast('No previous set to copy');return;}if(ex.type==='weight')s.w=p.w;if(ex.type==='band'&&p.band&&bandById(p.band))s.band=p.band;s.r=p.r;save();rerenderCard(ei);};
 A.addSet=ei=>{const e=state.active.exercises[ei];const last=e.sets[e.sets.length-1];const s=newSet();if(last){s.w=last.w;s.band=last.band;}e.sets.push(s);save();rerenderCard(ei);};
 A.setMenu=(ei,si)=>openSheet(`<h3>Set ${si+1}</h3><button class="btn full danger" onclick="A.delSet(${ei},${si})">Delete this set</button><button class="btn full mt8" onclick="A.closeSheet()">Cancel</button>`);
 A.delSet=(ei,si)=>{const e=state.active.exercises[ei];e.sets.splice(si,1);if(!e.sets.length)e.sets.push(newSet());save();closeSheet();rerenderCard(ei);};
 A.exMenu=ei=>{const a=state.active,e=a.exercises[ei],ex=exById(e.exerciseId),n=a.exercises.length;openSheet(`<h3>${esc(ex?ex.name:'Exercise')}</h3><div class="list"><div class="li tap" onclick="A.go('exerciseEdit',{id:'${e.exerciseId}',back:'workout'},'home')"><div class="grow t">Edit exercise and instructions</div>${ICON.chev}</div>${ei>0?`<div class="li tap" onclick="A.moveEx(${ei},-1)"><div class="grow t">Move up</div></div>`:''}${ei<n-1?`<div class="li tap" onclick="A.moveEx(${ei},1)"><div class="grow t">Move down</div></div>`:''}<div class="li tap" onclick="A.swapEx(${ei})"><div class="grow"><div class="t">Swap for another exercise</div><div class="s">For when the machine is taken or missing</div></div>${ICON.chev}</div><div class="li tap" onclick="A.openExNote(${ei})"><div class="grow t">Add a note</div></div><div class="li tap" onclick="A.removeEx(${ei})"><div class="grow t" style="color:var(--red)">Remove from this workout</div></div></div>`);};
+A.lastToggle=o=>{if((state.settings.lastOpen!==false)===o)return;state.settings.lastOpen=o;save();};
 A.wNote=v=>{if(!state.active)return;state.active.note=v;save();};
 A.exNote=(ei,v)=>{const e=state.active&&state.active.exercises[ei];if(!e)return;e.note=v;save();};
 A.openExNote=ei=>{const e=state.active&&state.active.exercises[ei];if(!e)return;closeSheet();if(e.note==null)e.note='';rerenderCard(ei);const t=$('#exn-'+ei);if(t){t.focus();t.scrollIntoView({block:'center',behavior:'smooth'});}};
