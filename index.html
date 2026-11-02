@@ -333,7 +333,7 @@ function nearestColorName(hex){const m=/^#?([0-9a-f]{6})$/i.exec(hex||'');if(!m)
 let rest={end:0,total:0,t:null},audio=null;
 function primeAudio(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=audio||new AC();if(audio.state==='suspended')audio.resume();}catch(e){}}
 function beep(){try{if(navigator.vibrate)navigator.vibrate([180,80,180]);if(!audio)return;const t=audio.currentTime;[0,0.22,0.44].forEach(off=>{const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=880;g.gain.setValueAtTime(0.0001,t+off);g.gain.exponentialRampToValueAtTime(0.25,t+off+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+off+0.18);o.connect(g);g.connect(audio.destination);o.start(t+off);o.stop(t+off+0.2);});}catch(e){}}
-function startRest(){if(!state.settings.restOn)return;primeAudio();const secs=+state.settings.restSec||90;rest.total=secs;rest.end=Date.now()+secs*1000;clearInterval(rest.t);rest.t=setInterval(tickRest,250);const bar=$('#restbar');bar.innerHTML=`<div class="rest-fill" id="rest-fill"></div><div class="rest-in"><span class="rest-lbl">Rest</span><span class="rest-time" id="rest-time">${fmtClock(secs)}</span><button class="btn sm" onclick="A.restAdd(30)">+30s</button><button class="btn sm" onclick="A.restSkip()">Skip</button></div>`;bar.hidden=false;tickRest();}
+function startRest(){if(!state.settings.restOn)return;primeAudio();const secs=+state.settings.restSec||90;rest.total=secs;rest.end=Date.now()+secs*1000;clearInterval(rest.t);rest.t=setInterval(tickRest,250);const bar=$('#restbar');bar.innerHTML=`<div class="rest-fill" id="rest-fill"></div><div class="rest-in"><span class="rest-lbl">Rest</span><span class="rest-time" id="rest-time">${fmtClock(secs)}</span><button class="btn sm" onclick="A.restAdd(-30)">−30s</button><button class="btn sm" onclick="A.restSkip()">Skip</button></div>`;bar.hidden=false;tickRest();}
 function tickRest(){if(!rest.end)return;const left=(rest.end-Date.now())/1000;if(left<=0){stopRest();beep();toast('Rest over');return;}const t=$('#rest-time'),f=$('#rest-fill');if(t)t.textContent=fmtClock(Math.ceil(left));if(f)f.style.width=Math.max(0,Math.min(100,100*(1-left/rest.total)))+'%';}
 function stopRest(){clearInterval(rest.t);rest.t=null;rest.end=0;const bar=$('#restbar');if(bar)bar.hidden=true;}
 
@@ -797,7 +797,7 @@ A.wipeAsk=()=>confirmSheet({title:'Delete all data?',body:'Exercises, routines, 
 function wipeAll(){const ids=state.workouts.map(w=>w.id);state=normalize({});state.deleted=ids.slice(0,200);state.updatedAt=Date.now();try{localStorage.removeItem(KEY);}catch(e){}saveLocal();stopRest();ed=null;bandDraft=null;for(const id of ids)deleteRemote(id);pushMeta();applyTheme();ui={tab:'home',view:'home',params:{}};render();toast('All data deleted');}
 
 /* rest timer buttons */
-A.restAdd=s=>{if(!rest.end)return;rest.end+=s*1000;rest.total+=s;tickRest();};
+A.restAdd=s=>{if(!rest.end)return;rest.end+=s*1000;if(s>0)rest.total+=s;tickRest();};
 A.restSkip=()=>stopRest();
 
 /* ---------- init ---------- */
