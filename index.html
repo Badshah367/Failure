@@ -406,7 +406,7 @@ VIEWS.workout=function(){
 };
 function cardHtml(ei){
   const e=state.active.exercises[ei];const ex=exById(e.exerciseId);if(!ex)return '';
-  const prev=prevSets(ex.id,activeRid()),best=bestMetric(ex.id,ex.type),tb=todayBest(e,ex),type=ex.type;
+  const prev=prevSets(ex.id),best=bestMetric(ex.id,ex.type),tb=todayBest(e,ex),type=ex.type;
   const unit=type==='reps'?'reps':'lbs e1RM';
   let stat='';if(best.best)stat+=`Best ${type==='reps'?best.best:Math.round(best.best)} ${unit}`;if(tb)stat+=`${stat?' · ':''}Today ${type==='reps'?tb:Math.round(tb)}`;if(!stat)stat=prev.length?'':'First time logging this';
   const head=type==='weight'?['Set','Previous','lbs','Reps','']:type==='band'?['Set','Previous','Band','Reps','']:['Set','Previous','Reps',''];
@@ -577,7 +577,7 @@ A.setField=(ei,si,f,v)=>{const a=state.active;if(!a||!a.exercises[ei]||!a.exerci
 A.toggleDone=(ei,si)=>{
   const a=state.active;if(!a)return;const e=a.exercises[ei];if(!e)return;const ex=exById(e.exerciseId),s=e.sets[si];if(!ex||!s)return;
   if(s.done){s.done=false;save();rerenderCard(ei);return;}
-  const p=prevSets(ex.id,activeRid())[si],last=e.sets.slice(0,si).reverse().find(x=>x.done);
+  const p=prevSets(ex.id)[si],last=e.sets.slice(0,si).reverse().find(x=>x.done);
   if(ex.type==='weight'&&s.w==null){if(p&&p.w!=null)s.w=p.w;else if(last&&last.w!=null)s.w=last.w;}
   if(ex.type==='band'&&!s.band){if(p&&p.band&&bandById(p.band))s.band=p.band;else if(last&&last.band)s.band=last.band;}
   if(s.r==null){if(p&&p.r!=null)s.r=p.r;else if(last&&last.r!=null)s.r=last.r;}
@@ -586,7 +586,7 @@ A.toggleDone=(ei,si)=>{
   if(ex.type==='band'&&!s.band){toast('Pick a band first');A.pickBand(ei,si);return;}
   s.done=true;save();rerenderCard(ei);startRest();
 };
-A.usePrev=(ei,si)=>{const e=state.active.exercises[ei],ex=exById(e.exerciseId),s=e.sets[si];const p=prevSets(ex.id,activeRid())[si];if(!p){toast('No previous set to copy');return;}if(ex.type==='weight')s.w=p.w;if(ex.type==='band'&&p.band&&bandById(p.band))s.band=p.band;s.r=p.r;save();rerenderCard(ei);};
+A.usePrev=(ei,si)=>{const e=state.active.exercises[ei],ex=exById(e.exerciseId),s=e.sets[si];const p=prevSets(ex.id)[si];if(!p){toast('No previous set to copy');return;}if(ex.type==='weight')s.w=p.w;if(ex.type==='band'&&p.band&&bandById(p.band))s.band=p.band;s.r=p.r;save();rerenderCard(ei);};
 A.addSet=ei=>{const e=state.active.exercises[ei];const last=e.sets[e.sets.length-1];const s=newSet();if(last){s.w=last.w;s.band=last.band;}e.sets.push(s);save();rerenderCard(ei);};
 A.setMenu=(ei,si)=>openSheet(`<h3>Set ${si+1}</h3><button class="btn full danger" onclick="A.delSet(${ei},${si})">Delete this set</button><button class="btn full mt8" onclick="A.closeSheet()">Cancel</button>`);
 A.delSet=(ei,si)=>{const e=state.active.exercises[ei];e.sets.splice(si,1);if(!e.sets.length)e.sets.push(newSet());save();closeSheet();rerenderCard(ei);};
